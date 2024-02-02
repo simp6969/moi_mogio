@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 export default function Mogoi() {
   const [isSpaceClicked, setIsSpaceClicked] = useState(false);
-  const [x, setX] = useState(12);
-  const [y, setY] = useState(12);
+  const [x, setX] = useState(24);
+  const [y, setY] = useState(24);
   const [direction, setDirection] = useState();
   const [applePos, setApplePos] = useState({
     right: Math.floor(Math.random() * 48),
     top: Math.floor(Math.random() * 48),
   });
+  const [suicide, setSuicide] = useState(false);
   const [snake, setSnakeTail] = useState([]);
 
   useEffect(() => {
@@ -78,17 +79,22 @@ export default function Mogoi() {
   }, [isSpaceClicked, direction, x, y]);
 
   useEffect(() => {
-    console.log(applePos);
-    console.log(x, y);
-    if (x * 10 - 10 === applePos.right && applePos.top === y * 10) {
+    if (applePos.right === x && applePos.top === y) {
       setApplePos({
         right: Math.floor(Math.random() * 48),
         top: Math.floor(Math.random() * 48),
       });
-
       setSnakeTail((prev) => [...prev, { x, y }]);
     }
   }, [x, y]);
+  const check = (ex, ey) => {
+    if (x == ex && y == ey) {
+      console.log("no");
+    }
+  };
+  if (suicide) {
+    return <div>Game Over score: score</div>;
+  }
 
   return (
     <div className="flex justify-center items-center h-[100vh] w-[100vw]">
@@ -100,9 +106,11 @@ export default function Mogoi() {
             className="h-[10px] w-[10px] bg-[green]"
           ></div>
 
-          {snake.map((e) => {
+          {snake.map((e, index) => {
             return (
               <div
+                onChange={check(e.x, e.y)}
+                key={index}
                 style={{ position: "absolute", top: e.y * 10, left: e.x * 10 }}
                 className="h-[10px] w-[10px] bg-[orange]"
               ></div>
@@ -113,8 +121,8 @@ export default function Mogoi() {
             className="h-[10px] w-[10px] bg-[red]"
             style={{
               position: "absolute",
-              // top: applePos.top,
-              // left: applePos.right,
+              top: applePos.top * 10,
+              left: applePos.right * 10,
             }}
           ></div>
         </div>
