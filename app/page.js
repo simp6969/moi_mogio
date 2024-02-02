@@ -40,6 +40,14 @@ export default function Mogoi() {
     }
   }, [x, y]);
   console.log(x, y);
+  useEffect(() => {
+    while (isSpaceClicked) {
+      setTimeout(() => {
+        setX(x + 1);
+      }, 1000);
+    }
+  }, [isSpaceClicked]);
+
   return (
     <div className="flex justify-center items-center h-[100vh] w-[100vw]">
       {isSpaceClicked ? null : <div>press space to start</div>}
