@@ -2,22 +2,26 @@
 
 import { useEffect, useState } from "react";
 export default function Mogoi() {
-  const [isSpaceClicked, setIsSpaceClicked] = useState(false);
+  const [mainPipe, setMainPipe] = useState({
+    x: 24,
+    y: 24,
+    applePos: {
+      right: Math.floor(Math.random() * 48),
+      top: Math.floor(Math.random() * 48),
+    },
+    isSpaceClicked: false,
+    snake: [],
+  });
   const [x, setX] = useState(24);
   const [y, setY] = useState(24);
   const [direction, setDirection] = useState();
-  const [applePos, setApplePos] = useState({
-    right: Math.floor(Math.random() * 48),
-    top: Math.floor(Math.random() * 48),
-  });
-  const [suicide, setSuicide] = useState(false);
   const [snake, setSnakeTail] = useState([]);
 
   useEffect(() => {
     if (document) {
       document.onkeydown = (e) => {
         if (e.key === " ") {
-          setIsSpaceClicked(true);
+          setMainPipe({ ...mainPipe, isSpaceClicked: true });
           setDirection("x");
         }
         if (e.key === "ArrowRight") {
@@ -32,13 +36,23 @@ export default function Mogoi() {
         if (e.key === "ArrowDown") {
           setDirection("-y");
         }
+        if (e.key === "d") {
+          setDirection("x");
+        }
+        if (e.key === "a") {
+          setDirection("-x");
+        }
+        if (e.key === "w") {
+          setDirection("y");
+        }
+        if (e.key === "s") {
+          setDirection("-y");
+        }
       };
     }
   }, []);
   useEffect(() => {
     const intervalValue = setInterval(() => {
-      if (!isSpaceClicked) return;
-
       if (direction === "-y") {
         setY((y) => {
           if (y + 1 > 48) return 0;
@@ -76,13 +90,16 @@ export default function Mogoi() {
     return () => {
       clearInterval(intervalValue);
     };
-  }, [isSpaceClicked, direction, x, y]);
+  }, [mainPipe.isSpaceClicked, direction, x, y]);
 
   useEffect(() => {
-    if (applePos.right === x && applePos.top === y) {
-      setApplePos({
-        right: Math.floor(Math.random() * 48),
-        top: Math.floor(Math.random() * 48),
+    if (mainPipe.applePos.right === x && mainPipe.applePos.top === y) {
+      setMainPipe({
+        ...mainPipe,
+        applePos: {
+          right: Math.floor(Math.random() * 48),
+          top: Math.floor(Math.random() * 48),
+        },
       });
       setSnakeTail((prev) => [...prev, { x, y }]);
     }
@@ -92,14 +109,11 @@ export default function Mogoi() {
       console.log("no");
     }
   };
-  if (suicide) {
-    return <div>Game Over score: score</div>;
-  }
 
   return (
     <div className="flex justify-center items-center h-[100vh] w-[100vw]">
-      {isSpaceClicked ? null : <div>press space to start</div>}
-      {isSpaceClicked ? (
+      {mainPipe.isSpaceClicked ? null : <div>press space to start</div>}
+      {mainPipe.isSpaceClicked ? (
         <div className="w-[500px] h-[500px] bg-[#2c2c2c] relative">
           <div
             style={{ position: "absolute", top: y * 10, left: x * 10 }}
@@ -121,10 +135,25 @@ export default function Mogoi() {
             className="h-[10px] w-[10px] bg-[red]"
             style={{
               position: "absolute",
-              top: applePos.top * 10,
-              left: applePos.right * 10,
+              top: mainPipe.applePos.top * 10,
+              left: mainPipe.applePos.right * 10,
             }}
           ></div>
+          <div
+            style={{ position: "absolute", top: y * 10, left: x * 10 }}
+            className="h-[10px] w-[10px] bg-[pink]"
+          ></div>
+
+          {snake.map((e, index) => {
+            return (
+              <div
+                onChange={check(e.x, e.y)}
+                key={index}
+                style={{ position: "absolute", top: e.y * 10, left: e.x * 10 }}
+                className="h-[10px] w-[10px] bg-[pink]"
+              ></div>
+            );
+          })}
         </div>
       ) : null}
     </div>
