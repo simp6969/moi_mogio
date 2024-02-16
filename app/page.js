@@ -1,7 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 export default function Mogoi() {
+  const router = useRouter();
   const [mainPipe, setMainPipe] = useState({
     x: 24,
     y: 24,
@@ -16,6 +18,7 @@ export default function Mogoi() {
   const [y, setY] = useState(24);
   const [direction, setDirection] = useState();
   const [snake, setSnakeTail] = useState([]);
+  const [suicide, setSuicide] = useState(false);
 
   useEffect(() => {
     if (document) {
@@ -85,6 +88,11 @@ export default function Mogoi() {
             : { x: prev[index - 1].x, y: prev[index - 1].y }
         );
       });
+      snake.map((e) => {
+        if (e.y === y && e.x === x) {
+          setSuicide(true);
+        }
+      });
     }, 100);
 
     return () => {
@@ -104,12 +112,21 @@ export default function Mogoi() {
       setSnakeTail((prev) => [...prev, { x, y }]);
     }
   }, [x, y]);
-  const check = (ex, ey) => {
-    if (x == ex && y == ey) {
-      console.log("no");
-    }
-  };
-
+  if (suicide) {
+    return (
+      <div className="flex flex-col justify-center items-center h-[100vh] w-[100vw]">
+        <h1>Game Over</h1>
+        <button
+          onClick={() => {
+            setSuicide(false);
+            setSnakeTail([]);
+          }}
+        >
+          play again
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="flex justify-center items-center h-[100vh] w-[100vw]">
       {mainPipe.isSpaceClicked ? null : <div>press space to start</div>}
@@ -123,7 +140,6 @@ export default function Mogoi() {
           {snake.map((e, index) => {
             return (
               <div
-                onChange={check(e.x, e.y)}
                 key={index}
                 style={{ position: "absolute", top: e.y * 10, left: e.x * 10 }}
                 className="h-[10px] w-[10px] bg-[orange]"
@@ -139,21 +155,6 @@ export default function Mogoi() {
               left: mainPipe.applePos.right * 10,
             }}
           ></div>
-          <div
-            style={{ position: "absolute", top: y * 10, left: x * 10 }}
-            className="h-[10px] w-[10px] bg-[pink]"
-          ></div>
-
-          {snake.map((e, index) => {
-            return (
-              <div
-                onChange={check(e.x, e.y)}
-                key={index}
-                style={{ position: "absolute", top: e.y * 10, left: e.x * 10 }}
-                className="h-[10px] w-[10px] bg-[pink]"
-              ></div>
-            );
-          })}
         </div>
       ) : null}
     </div>
