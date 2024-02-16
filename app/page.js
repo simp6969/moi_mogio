@@ -1,9 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 export default function Mogoi() {
-  const router = useRouter();
   const [mainPipe, setMainPipe] = useState({
     x: 24,
     y: 24,
@@ -128,8 +126,12 @@ export default function Mogoi() {
     );
   }
   return (
-    <div className="flex justify-center items-center h-[100vh] w-[100vw]">
-      {mainPipe.isSpaceClicked ? null : <div>press space to start</div>}
+    <div className="flex justify-center items-center h-[100vh] w-[100vw] text-center">
+      {mainPipe.isSpaceClicked ? null : (
+        <div className="flex gap-[10px] flex-col">
+          <h1>Press Space To Start</h1>
+        </div>
+      )}
       {mainPipe.isSpaceClicked ? (
         <div className="w-[500px] h-[500px] bg-[#2c2c2c] relative">
           <div
