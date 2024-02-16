@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 export default function Mogoi() {
   const [mainPipe, setMainPipe] = useState({
@@ -126,7 +127,13 @@ export default function Mogoi() {
     );
   }
   return (
-    <div className="flex justify-center items-center h-[100vh] w-[100vw] text-center">
+    <div className="flex justify-center items-center h-[100vh] w-[100vw] text-center flex-col">
+      {mainPipe.isSpaceClicked ? (
+        <div>
+          your score:
+          {snake.length}
+        </div>
+      ) : null}
       {mainPipe.isSpaceClicked ? null : (
         <div className="flex gap-[10px] flex-col">
           <h1>Press Space To Start</h1>
@@ -144,19 +151,24 @@ export default function Mogoi() {
               <div
                 key={index}
                 style={{ position: "absolute", top: e.y * 10, left: e.x * 10 }}
-                className="h-[10px] w-[10px] bg-[orange]"
+                className="h-[10px] w-[10px] bg-[green]"
               ></div>
             );
           })}
 
-          <div
-            className="h-[10px] w-[10px] bg-[red]"
+          <Image
             style={{
               position: "absolute",
               top: mainPipe.applePos.top * 10,
               left: mainPipe.applePos.right * 10,
+              scale: 3,
             }}
-          ></div>
+            width={10}
+            height={10}
+            src="/apple.png"
+            alt="apple"
+            priority="true"
+          ></Image>
         </div>
       ) : null}
     </div>
