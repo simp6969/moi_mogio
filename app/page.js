@@ -142,11 +142,11 @@ export default function Mogoi() {
         return prev.map((_, index) =>
           index === 0
             ? { xP2, yP2 }
-            : { x: prev[index - 1].x, y: prev[index - 1].y }
+            : { xP2: prev[index - 1].xP2, yP2: prev[index - 1].yP2 }
         );
       });
       snakeP2.map((e) => {
-        if (e.y === y && e.x === x) {
+        if (e.yP2 === y && e.x === xP2) {
           setSuicideP2(true);
         }
       });
@@ -167,15 +167,15 @@ export default function Mogoi() {
     yP2,
   ]);
   useEffect(() => {
-    if (applePos.right === xP2 && applePos.top === yP2) {
-      console.log(xP2, yP2, applePos.right, applePos.top);
+    if (xP2 == applePos.right && yP2 === applePos.top) {
+      console.log("ok");
       setApplePos({
         right: Math.floor(Math.random() * 48),
         top: Math.floor(Math.random() * 48),
       });
       setSnakeTailP2((prev) => [...prev, { xP2, yP2 }]);
     }
-  }, [xP2, xP2]);
+  }, [xP2, yP2]);
   useEffect(() => {
     if (applePos.right === x && applePos.top === y) {
       setApplePos({
@@ -258,7 +258,11 @@ export default function Mogoi() {
             return (
               <div
                 key={index}
-                style={{ position: "absolute", top: e.y * 10, left: e.x * 10 }}
+                style={{
+                  position: "absolute",
+                  top: e.yP2 * 10,
+                  left: e.xP2 * 10,
+                }}
                 className="h-[10px] w-[10px] bg-[pink]"
               ></div>
             );
