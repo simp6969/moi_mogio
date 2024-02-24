@@ -142,6 +142,9 @@ export default function Mogoi() {
           setSuicideP2(true);
         }
       });
+      if (yP2 === y && xP2 === x) {
+        console.log("dies");
+      }
     }, 100);
 
     return () => {
@@ -181,8 +184,9 @@ export default function Mogoi() {
     return (
       <div className="flex flex-col justify-center items-center h-[100vh] w-[100vw] gap-5">
         <h1>Game Over</h1>
+        <h1>{suicide ? "player 2 wins" : "player 1 wins"}</h1>
         <button
-          className="flex justify-center items-center h-[80px] w-[100px] p-[10px] rounded-[10px] border-2 border-black"
+          className="flex justify-center items-center p-[30px] h-[50px] w-[100px] rounded-[10px] border-2 border-black"
           onClick={() => {
             setSuicide(false);
             setSnakeTail([]);
@@ -190,7 +194,7 @@ export default function Mogoi() {
             setSnakeTailP2([]);
           }}
         >
-          play again
+          play
         </button>
       </div>
     );
@@ -198,18 +202,22 @@ export default function Mogoi() {
   return (
     <div className="flex justify-center items-center h-[100vh] w-[100vw] text-center flex-col">
       {mainPipe.isSpaceClicked ? (
-        <div>
-          your score:
-          {snake.length}
+        <div className="flex gap-[10px] flex-col">
+          <p>
+            player 1 score:
+            {snake.length}
+          </p>
+          <p>player 2 score: {snakeP2.length}</p>
         </div>
       ) : null}
       {mainPipe.isSpaceClicked ? null : (
         <div className="flex gap-[10px] flex-col">
+          <img draggable="false" src="/title.png"></img>
           <h1>Press Space To Start</h1>
         </div>
       )}
       {mainPipe.isSpaceClicked ? (
-        <div className="w-[500px] h-[500px] bg-[#2c2c2c] relative">
+        <div className="w-[500px] h-[500px] opacity-80 bg-[#2c2c2c] relative">
           <div
             style={{ position: "absolute", top: y * 10, left: x * 10 }}
             className="h-[10px] w-[10px] bg-[green]"
