@@ -4,11 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 export default function Mogoi() {
   const [mainPipe, setMainPipe] = useState({
-    x: 24,
-    y: 24,
-
     isSpaceClicked: false,
-    snake: [],
   });
   const [x, setX] = useState(24);
   const [y, setY] = useState(25);
@@ -18,11 +14,7 @@ export default function Mogoi() {
 
   //player 2
   const [mainPipeP2, setMainPipeP2] = useState({
-    x: 24,
-    y: 24,
-
     isSpaceClicked: false,
-    snake: [],
   });
   const [xP2, setXP2] = useState(24);
   const [yP2, setYP2] = useState(24);
@@ -146,7 +138,7 @@ export default function Mogoi() {
         );
       });
       snakeP2.map((e) => {
-        if (e.yP2 === y && e.x === xP2) {
+        if (e.yP2 === yP2 && e.xP2 === xP2) {
           setSuicideP2(true);
         }
       });
@@ -168,7 +160,6 @@ export default function Mogoi() {
   ]);
   useEffect(() => {
     if (xP2 == applePos.right && yP2 === applePos.top) {
-      console.log("ok");
       setApplePos({
         right: Math.floor(Math.random() * 48),
         top: Math.floor(Math.random() * 48),
