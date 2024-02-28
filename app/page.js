@@ -219,9 +219,20 @@ export default function Mogoi() {
         </div>
       ) : null}
       {mainPipe.isSpaceClicked ? null : (
-        <div className="flex gap-[10px] flex-col">
+        <div className="flex gap-[10px] flex-col justify-center items-center">
           <img draggable="false" src="/title.png"></img>
           <h1>Press Space To Start</h1>
+          <button
+            className="px-[20px] py-[10px] border-black border-2 rounded-[10px]"
+            onClick={() => {
+              setMainPipe({ ...mainPipe, isSpaceClicked: true });
+              setMainPipeP2({ ...mainPipeP2, isSpaceClicked: true });
+              setDirection("y");
+              setDirectionP2("x");
+            }}
+          >
+            Start!
+          </button>
         </div>
       )}
       {mainPipe.isSpaceClicked ? (
