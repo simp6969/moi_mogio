@@ -143,7 +143,7 @@ export default function Mogoi() {
         }
       });
       if (yP2 === y && xP2 === x) {
-        console.log("dies");
+        setSuicide(true);
       }
     }, 100);
 
@@ -200,9 +200,9 @@ export default function Mogoi() {
     );
   }
   return (
-    <div className="flex justify-center items-center h-[100vh] w-[100vw] text-center flex-col">
+    <div className="flex overflow-hidden justify-center items-center h-[100vh] w-[100vw] text-center flex-col max-sm:justify-start">
       {mainPipe.isSpaceClicked ? (
-        <div className="flex gap-[10px] flex-col">
+        <div className="flex justify-center gap-[10px] flex-col">
           <p>
             player 1 score:
             {snake.length}
@@ -214,8 +214,9 @@ export default function Mogoi() {
         <div className="flex gap-[10px] flex-col justify-center items-center">
           <img draggable="false" src="/title.png"></img>
           <h1>Press Space To Start</h1>
+
           <button
-            className="px-[20px] py-[10px] border-black border-2 rounded-[10px]"
+            className="button-86"
             onClick={() => {
               setMainPipe({ ...mainPipe, isSpaceClicked: true });
               setMainPipeP2({ ...mainPipeP2, isSpaceClicked: true });
@@ -279,6 +280,94 @@ export default function Mogoi() {
           })}
         </div>
       ) : null}
+      <div className="relative w-[80vw] h-[20vh] flex justify-center ">
+        <div className="flex justify-center">
+          <svg
+            className="rotate-90"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+            viewBox="0 0 448 512"
+            height={50}
+            width={50}
+          >
+            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+          </svg>
+        </div>
+        <div className="flex h-[100%] items-center">
+          <svg
+            className="rotate-180"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+            viewBox="0 0 448 512"
+            height={50}
+            width={50}
+          >
+            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+            viewBox="0 0 448 512"
+            height={50}
+            width={50}
+          >
+            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+          </svg>
+        </div>
+        <div>
+          <svg
+            className="rotate-[270deg]"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+            viewBox="0 0 448 512"
+            height={50}
+            width={50}
+          >
+            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+          </svg>
+        </div>
+      </div>
+      <div className="relative w-[80vw] h-[20vh] flex justify-center items-center">
+        <svg
+          className="rotate-90"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="gray"
+          viewBox="0 0 448 512"
+          height={50}
+          width={50}
+        >
+          <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+        </svg>
+        <svg
+          className="rotate-180"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="gray"
+          viewBox="0 0 448 512"
+          height={50}
+          width={50}
+        >
+          <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+        </svg>
+        <svg
+          className="rotate-[270deg]"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="gray"
+          viewBox="0 0 448 512"
+          height={50}
+          width={50}
+        >
+          <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="gray"
+          viewBox="0 0 448 512"
+          height={50}
+          width={50}
+        >
+          <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+        </svg>
+      </div>
     </div>
   );
 }
